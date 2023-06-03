@@ -5,8 +5,8 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.TextFormat;
 import dev.diona.pluginhooker.PluginHooker;
-import dev.diona.pluginhooker.listeners.PlayerListener;
 import net.catrainbow.diona.command.AntiCheatCommand;
+import net.catrainbow.diona.listener.PluginListener;
 import net.catrainbow.diona.task.UpdateMetaTask;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class DionaAC extends PluginBase {
         this.getLogger().info("§b[DionaAC]§a>> Welcome to use DionaAC by Catrainbow.");
         this.initConfig();
         this.getServer().getCommandMap().register("DionaAC", new AntiCheatCommand("ac", "DionaAC Command"));
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PluginListener(), this);
         this.getLogger().info("§b[DionaAC]§a>> Totally hooked " + hookedPlugin.size() + " AntiCheat");
         this.getServer().getScheduler().scheduleRepeatingTask(new UpdateMetaTask(), 20);
     }

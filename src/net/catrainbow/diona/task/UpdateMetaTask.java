@@ -17,6 +17,7 @@ public class UpdateMetaTask extends Task {
     @Override
     public void onRun(int i) {
         for (Player player : DionaAC.getInstance().getServer().getOnlinePlayers().values()) {
+            if (!DionaMeta.playerDionaMeta.containsKey(player.getName())) return;
             Scoreboards.add(player, DionaAC.getInstance().getConfig().getString("server-name"));
             ArrayList<String> subList = updatedList;
             subList.forEach(it -> it = it.replace("@ac", this.getPlayerAntiCheats(player)).replace("@hunger", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).hunger)).replace("@kick", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).kick)).replace("@damage", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).damage)).replace("@flag", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).flag)));
