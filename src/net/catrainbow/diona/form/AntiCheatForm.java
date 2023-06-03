@@ -20,6 +20,6 @@ public class AntiCheatForm extends FormSimple {
 
     @Override
     public void onClicked(int id, Player player) {
-        DionaAPI.reactionAntiCheat(player, String.valueOf(DionaAC.getInstance().hookedPlugin.values().toArray(new Plugin[0])[id]));
+        DionaAPI.reactionAntiCheat(player, String.valueOf((DionaAC.getInstance().hookedPlugin.values().toArray(new Plugin[0])[id]).getName()));
     }
 }
