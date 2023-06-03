@@ -16,7 +16,7 @@ public class SettingForm extends FormSimple {
     }
 
     private String formatBoolean(boolean bool) {
-        return bool ? "§aTure" : "§cFalse";
+        return bool ? "§aTrue" : "§cFalse";
     }
 
     @Override

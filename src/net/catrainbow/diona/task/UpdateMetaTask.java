@@ -35,7 +35,7 @@ public class UpdateMetaTask extends Task {
     }
 
     private String formatBoolean(boolean bool) {
-        return bool ? "§aTure" : "§cFalse";
+        return bool ? "§aTrue" : "§cFalse";
     }
 
 }
