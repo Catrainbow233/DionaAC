@@ -26,7 +26,6 @@ public class DionaAC extends PluginBase {
         return instance;
     }
 
-    private final Config config = new Config(this.getDataFolder() + "/config.yml", 2);
     public HashMap<String, Plugin> hookedPlugin = new HashMap<>();
 
     @Override
@@ -45,14 +44,15 @@ public class DionaAC extends PluginBase {
     }
 
     public Config getConfig() {
-        return this.config;
+        return new Config(this.getDataFolder() + "/config.yml", 2);
     }
 
     private void initConfig() {
-        if (!this.getConfig().exists("hooked-anti-cheats")) {
-            this.getConfig().set("hooked-anti-cheats", new ArrayList<>());
-            this.getConfig().set("server-name", "§eCatrainbow's Test Server");
-            this.getConfig().set("scoreboards", new ArrayList<String>() {
+        Config cfg = this.getConfig();
+        if (!cfg.exists("hooked-anti-cheats")) {
+            cfg.set("hooked-anti-cheats", new ArrayList<>());
+            cfg.set("server-name", "§eCatrainbow's Test Server");
+            cfg.set("scoreboards", new ArrayList<String>() {
                 {
                     add(TextFormat.BLUE.name());
                     add("AC: @ac");
@@ -64,8 +64,8 @@ public class DionaAC extends PluginBase {
                     add("§emc.catrainbow.me");
                 }
             });
-            this.getConfig().set("kick", "§cYou are kicked!");
-            this.getConfig().save(true);
+            cfg.set("kick", "§cYou are kicked!");
+            cfg.save(true);
         }
         this.getConfig().getStringList("hooked-anti-cheats").forEach(it -> {
             if (this.getServer().getPluginManager().getPlugin(it) != null) {
