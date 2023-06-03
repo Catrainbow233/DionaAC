@@ -1,0 +1,9 @@
+name: DionaAC
+version: 1.0.0
+main: net.catrainbow.diona.DionaAC
+author: Catrainbow
+description: An anti-cheat tester plugin
+website: https://catrainbow.me
+
+depend:
+  - PluginHooker
