@@ -33,7 +33,9 @@ public class AntiCheatCommand extends Command {
                     return true;
                 } else if (strings[0].equals("gui")) {
                     ((Player) commandSender).showFormWindow(new GeneralForm());
+                    return true;
                 } else DionaAPI.reactionAntiCheat((Player) commandSender, strings[0]);
+                return true;
             default:
                 for (String pluginName : strings)
                     DionaAPI.reactionAntiCheat((Player) commandSender, pluginName);
