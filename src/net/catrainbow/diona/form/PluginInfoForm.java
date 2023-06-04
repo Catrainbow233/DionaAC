@@ -19,7 +19,7 @@ public class PluginInfoForm extends FormSimple {
         Plugin plugin = DionaAC.getInstance().hookedPlugin.values().toArray(new Plugin[0])[id];
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(plugin.getName()).append("\n");
-        stringBuilder.append("Description: ").append(plugin.getDescription().getDescription());
+        stringBuilder.append("Description: ").append(plugin.getDescription().getDescription()).append("\n");
         stringBuilder.append("Author: ");
         plugin.getDescription().getAuthors().forEach(it -> stringBuilder.append("- ").append(it).append("\n"));
         stringBuilder.append("Version: ").append(plugin.getDescription().getVersion());

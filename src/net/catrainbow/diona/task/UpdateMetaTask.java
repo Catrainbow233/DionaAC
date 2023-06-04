@@ -22,7 +22,12 @@ public class UpdateMetaTask extends Task {
             ArrayList<String> subList = new ArrayList<>();
             updatedList.forEach(it -> subList.add(it.replace("@ac", this.getPlayerAntiCheats(player)).replace("@hunger", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).hunger)).replace("@kick", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).kick)).replace("@damage", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).damage)).replace("@flag", formatBoolean(DionaMeta.playerDionaMeta.get(player.getName()).flag))));
             Scoreboards.setMessage(player, subList);
+            if (!DionaMeta.playerDionaMeta.get(player.getName()).hunger)
+                player.getFoodData().reset();
         }
+        DionaAC.getInstance().getServer().getDefaultLevel().setRaining(false);
+        DionaAC.getInstance().getServer().getDefaultLevel().setTime(1000);
+        DionaAC.getInstance().getServer().getDefaultLevel().setThundering(false);
     }
 
     private String getPlayerAntiCheats(Player player) {

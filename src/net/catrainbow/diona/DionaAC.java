@@ -64,6 +64,7 @@ public class DionaAC extends PluginBase {
                     add("§emc.catrainbow.me");
                 }
             });
+            cfg.set("welcome", new ArrayList<>());
             cfg.set("kick", "§cYou are kicked!");
             cfg.save(true);
         }

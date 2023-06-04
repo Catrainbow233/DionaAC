@@ -1,6 +1,7 @@
 package net.catrainbow.diona.listener;
 
 import cn.nukkit.Player;
+import cn.nukkit.block.BlockID;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
@@ -13,6 +14,7 @@ import cn.nukkit.event.server.DataPacketSendEvent;
 import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.network.protocol.DisconnectPacket;
 import cn.nukkit.network.protocol.TextPacket;
+import cn.nukkit.utils.TextFormat;
 import net.catrainbow.diona.DionaAC;
 import net.catrainbow.diona.DionaAPI;
 import net.catrainbow.diona.DionaMeta;
@@ -22,9 +24,11 @@ public class PluginListener implements Listener {
     @EventHandler
     public void onPlayerJoins(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        player.removeAllEffects();
         DionaMeta.playerDionaMeta.put(player.getName(), new DionaMeta());
         DionaAPI.disableAllAntiCheat(player);
         player.teleport(DionaAC.getInstance().getServer().getDefaultLevel().getSpawnLocation().add(0.0, 1.0, 0.0));
+        DionaAC.getInstance().getConfig().getStringList("welcome").forEach(player::sendMessage);
     }
 
     @EventHandler
@@ -62,6 +66,10 @@ public class PluginListener implements Listener {
 
     @EventHandler
     public void onPlayerBreaks(BlockBreakEvent event) {
+        if (event.getBlock().getId() == BlockID.BED_BLOCK) {
+            Player player = event.getPlayer();
+            player.sendTitle(TextFormat.BLUE + "BED DESTROY!", "", 2, 100, 2);
+        }
         if (!event.getPlayer().isOp()) event.setCancelled();
     }
 
