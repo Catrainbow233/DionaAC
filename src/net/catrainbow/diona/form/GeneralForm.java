@@ -9,6 +9,8 @@ public class GeneralForm extends FormSimple {
         super("General", "Diona AntiCheat Control Panel");
         this.addButton("AntiCheats");
         this.addButton("Settings");
+        this.addButton("Items");
+        this.addButton("Plugins Info");
     }
 
     @Override
@@ -19,6 +21,9 @@ public class GeneralForm extends FormSimple {
                 break;
             case 1:
                 player.showFormWindow(new SettingForm(player));
+                break;
+            case 3:
+                player.showFormWindow(new PluginInfoForm());
                 break;
         }
     }

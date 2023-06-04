@@ -3,6 +3,8 @@ package net.catrainbow.diona.listener;
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.block.BlockBreakEvent;
+import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerKickEvent;
@@ -10,6 +12,7 @@ import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.DataPacketSendEvent;
 import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.network.protocol.DisconnectPacket;
+import cn.nukkit.network.protocol.TextPacket;
 import net.catrainbow.diona.DionaAC;
 import net.catrainbow.diona.DionaAPI;
 import net.catrainbow.diona.DionaMeta;
@@ -53,6 +56,16 @@ public class PluginListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerPlaces(BlockPlaceEvent event) {
+        if (!event.getPlayer().isOp()) event.setCancelled();
+    }
+
+    @EventHandler
+    public void onPlayerBreaks(BlockBreakEvent event) {
+        if (!event.getPlayer().isOp()) event.setCancelled();
+    }
+
+    @EventHandler
     public void onDataPacketReceived(DataPacketSendEvent event) {
         DataPacket packet = event.getPacket();
         if (packet instanceof DisconnectPacket) {
@@ -62,6 +75,11 @@ public class PluginListener implements Listener {
                     event.setCancelled();
                     player.sendTitle(DionaAC.getInstance().getConfig().getString("kick"), ((DisconnectPacket) packet).message, 20, 100, 20);
                 }
+            }
+        } else if (packet instanceof TextPacket) {
+            if (((TextPacket) packet).type == TextPacket.TYPE_CHAT || ((TextPacket) packet).type == TextPacket.TYPE_ANNOUNCEMENT) {
+                Player player = event.getPlayer();
+                if (!DionaMeta.playerDionaMeta.get(player.getName()).flag) event.setCancelled();
             }
         }
     }
